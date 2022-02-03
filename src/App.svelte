@@ -208,12 +208,12 @@
 				<div>[ taboo_world ]</div>
 				<div id="underworld">the underworld wide web</div>
 			</div>
-			<Router url={"/sandytest/" + url}>
-				<Route path="/sandytest/" component={Home} />
-				<Route path="/sandytest/mission" component={Mission} />
-				<Route path="/sandytest/bio" component={Bio} />
-				<Route path="/sandytest/socials" component={Socials} />
-				<Route path="/sandytest/archive" component={Archive} />
+			<Router url>
+				<Route path="/" component={Home} />
+				<Route path="/mission" component={Mission} />
+				<Route path="/bio" component={Bio} />
+				<Route path="/socials" component={Socials} />
+				<Route path="/archive" component={Archive} />
 			</Router>
 		</div>
 	</div>
