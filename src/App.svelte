@@ -208,7 +208,7 @@
 				<div>[ taboo_world ]</div>
 				<div id="underworld">the underworld wide web</div>
 			</div>
-			<Router url>
+			<Router {url}>
 				<Route path="/" component={Home} />
 				<Route path="/mission" component={Mission} />
 				<Route path="/bio" component={Bio} />
