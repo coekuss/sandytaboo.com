@@ -1,0 +1,443 @@
+<script>
+  import { blurBg } from "./stores.js"
+  import Button from "./Button.svelte"
+	import { link } from 'svelte-routing'
+  import { onDestroy, onMount } from 'svelte';
+
+  onMount(async () => { $blurBg = true })
+  onDestroy(async () => { $blurBg = false })
+
+  let data = {
+    "projects": {
+      2020: {
+        "Virtual Ascension": {
+          "thumbnails": [
+            "archive/projects/2020 - Virtual Ascension/1.vaproduct.jpeg",
+            "archive/projects/2020 - Virtual Ascension/2.vaproduct1.JPG",
+            "archive/projects/2020 - Virtual Ascension/3.vaskndlss1.JPG",
+            "archive/projects/2020 - Virtual Ascension/4.vataboo1.JPG",
+          ],
+          "description": "In collaboration with SKNDLSS"
+        }
+      },
+      
+      2019: {
+        "Bae Blade": {
+          "thumbnails": [
+            "archive/projects/2019 - Bae Blade/1.baefront.jpeg",
+            "archive/projects/2019 - Bae Blade/2.baeback.jpeg",
+            "archive/projects/2019 - Bae Blade/3.trade.JPG",
+          ],
+          "description": "In collaboration with SKNDLSS"
+        },
+        "Mirrored Collection": {
+          "thumbnails": [
+            "archive/projects/2019 - Mirrored Collection/1.MirrorCollection.jpg",
+            "archive/projects/2019 - Mirrored Collection/2.TribalHairClip.jpg",
+            "archive/projects/2019 - Mirrored Collection/3.TabooHairClip.jpg",
+            "archive/projects/2019 - Mirrored Collection/4.NinjaStar.jpg",
+            "archive/projects/2019 - Mirrored Collection/5.NinjaStarEarrings.jpg",
+          ],
+          "description": "In collaboration with Michele Yue"
+        }
+      },
+      2018: {
+        "Taboo Juggalo Shirt": {
+          "thumbnails": [
+            "archive/projects/2018 - Taboo Juggalo Shirt/1.shirt.jpg",
+            "archive/projects/2018 - Taboo Juggalo Shirt/2.lookbook4.JPG",
+            "archive/projects/2018 - Taboo Juggalo Shirt/3.lookbook1.JPG",
+            "archive/projects/2018 - Taboo Juggalo Shirt/4.lookbook3.JPG",
+          ],
+          "description": "Shot by Yuliss Benitez. Art by Isaidah E. Cruz."
+        },
+        "Taboo World Stickers": {
+          "thumbnails": [
+            "archive/projects/2018 - Taboo World Stickers/1.Sticker.jpg",
+          ],
+          "description": ""
+        },
+        "Taboo World Patches": {
+          "thumbnails": [
+            "archive/projects/2018 - Taboo World Patches/3.Patch.JPG",
+          ],
+          "description": ""
+        }
+      }
+    },
+    "campaigns": {
+      2022: {
+        "Taboo Liner Reloaded Onyx Black": {
+          "thumbnails": [
+            "archive/campaigns/2022 - Taboo Liner Reloaded Onyx Black/1.jpg",
+            "archive/campaigns/2022 - Taboo Liner Reloaded Onyx Black/2.jpg",
+            "archive/campaigns/2022 - Taboo Liner Reloaded Onyx Black/3.jpg",
+            "archive/campaigns/2022 - Taboo Liner Reloaded Onyx Black/4.jpg",
+            "archive/campaigns/2022 - Taboo Liner Reloaded Onyx Black/5.jpg",
+            "archive/campaigns/2022 - Taboo Liner Reloaded Onyx Black/6.jpg",
+            "archive/campaigns/2022 - Taboo Liner Reloaded Onyx Black/7.jpg",
+            "archive/campaigns/2022 - Taboo Liner Reloaded Onyx Black/8.jpg",
+            "archive/campaigns/2022 - Taboo Liner Reloaded Onyx Black/9.jpg",
+            "archive/campaigns/2022 - Taboo Liner Reloaded Onyx Black/10.jpg",
+            "archive/campaigns/2022 - Taboo Liner Reloaded Onyx Black/11.jpg",
+            "archive/campaigns/2022 - Taboo Liner Reloaded Onyx Black/12.jpg",
+            "archive/campaigns/2022 - Taboo Liner Reloaded Onyx Black/13.jpg"
+          ],
+          "description": "Shot by Brian Vu"
+        }
+      },
+      2021: {
+        "Taboo Glue Pen": {
+          "thumbnails": [
+            "archive/campaigns/2021 - Taboo Glue Pen/tabooglue.jpg",
+            "archive/campaigns/2021 - Taboo Glue Pen/tabooglue3.jpg",
+            "archive/campaigns/2021 - Taboo Glue Pen/tabooglue4.jpg",
+          ],
+          "description": "Shot by Chris Vu"
+        }
+      }
+    },
+    "press": {
+      2021: {
+        "Vogue": {
+          "thumbnails": [
+            "archive/press/2021 - Vogue/3.vogue2021.jpg",
+            "archive/press/2021 - Vogue/4.vogue2021.jpg",
+            "archive/press/2021 - Vogue/5.vogue2021.jpg"
+          ],
+          "description": "Taboo Liner by Ryan Burke"
+        }
+      },
+      2019: {
+        "King Kong Magazine": {
+          "thumbnails": [
+            "archive/press/2019 - King Kong Magazine/kingkong.jpg",
+          ],
+          "description": "Shot by Brian Vu"
+        },
+        "Depop": {
+          "thumbnails": [
+            "archive/press/2019 - Depop/2.depop2019.jpg",
+          ],
+          "description": ""
+        }
+      }
+    }
+  }
+
+
+  let selCat = "projects"
+  let selYear = 2020
+
+  function selectYear(year) {
+    document.querySelectorAll(".project-content").forEach(e => {
+      e.classList.add("expanded")
+    })
+    document.querySelectorAll(".project-indicator").forEach(e => {
+      e.classList.add("plus")
+    })
+    selYear = year
+  }
+
+  function toggleExpand(e) {
+    let project = e.nextElementSibling
+    e.querySelector(".project-indicator").classList.toggle("plus")
+    project.classList.toggle("expanded")
+  }
+</script>
+
+<style>
+  #mission-wrap {
+    height: 100%;
+    width: 100%;
+    color: white;
+    transition: 0.2s;
+    box-sizing: border-box;
+    position: relative;
+  }
+
+  #top-bar {
+    position: absolute;
+    z-index: 2;
+    display: grid;
+    justify-content: center;
+    width: 100%;
+  }
+
+  #back {
+    position: absolute;
+    top: 0;
+    left: 0;
+  }
+
+  .button-head {
+    font-family: eurostile-extended;
+    width: 140px;
+    height: 22px;
+    margin-top: 10px;
+    border: 1px solid rgb(194,195,214);
+    padding: 2px;
+  }
+
+  .button-head div, .button-sub div {
+    width: 100%;
+    height: 100%;
+    display: flex;
+    place-items: center;
+    place-content: center;
+    background: rgba(194,195,214,0.15);
+  }
+
+  .button-sub {
+    font-family: eurostile-extended;
+    width: 145px;
+    height: 26px;
+    margin-top: 10px;
+    border: 1px solid rgba(194,195,214,0.15);
+    padding: 2px;
+  }
+
+  #archive-view {
+    padding-top: 60px;
+    width: 100%;
+    height: calc(100% - 60px);
+    display: flex;
+    flex-direction: row;
+  }
+
+  #sidebar {
+    margin-top: -10px;
+  }
+
+  #sidebar .button-head, #sidebar .button-sub {
+    width: 144px;
+    cursor: pointer;
+  }
+  
+  #sidebar #years {
+    margin-top: 20px;
+  }
+
+  #content {
+    width: 100%;
+    margin-left: 20px;
+		border-top: 7px solid rgb(126,129,168);
+		border-bottom: 7px solid rgb(126,129,168);
+		border-left: 2px solid rgb(126,129,168);
+		border-right: 2px solid rgb(126,129,168);
+    padding: 10px;
+    overflow-y: auto;
+  }
+
+  .project {
+    display: grid;
+    grid-template-rows: 30px fit-content;
+    margin-bottom: 10px;
+  }
+
+  #content .project-row {
+    font-family: eurostile-extended;
+    display: grid;
+    grid-template-columns: 30px 1fr;
+    grid-gap: 15px;
+    cursor: pointer;
+  }
+
+  .project-row .project-indicator, .project-row .project-head {
+    border: 1px solid rgb(194,195,214);
+    padding: 2px;
+    height: 30px;
+  }
+
+  .project-row .project-indicator {
+    width: 100%;
+    position: relative;
+  }
+
+  .project-indicator::before {
+    content: "-";
+    font-size: 1.6em;
+    position: absolute;
+    top: -4px;
+    left: 13px;
+  }
+
+  .project-indicator.plus::before {
+    content: "+";
+    font-size: 1.5em;
+    position: absolute;
+    top: -1px;
+    left: 7px;
+  }
+
+  .project-indicator div, .project-head div, .side-guide div {
+    width: 100%;
+    height: 100%;
+    display: flex;
+    background: rgba(194,195,214,0.15);
+  }
+
+  .project-indicator div {
+    font-size: 1.5em;
+    place-content: center;
+    place-items: center;
+  }
+
+  .project-head div {
+    padding-left: 5px;
+    align-items: center;
+  }
+
+
+  .project-indicator div {
+    padding: 4px;
+    box-sizing: border-box;
+  }
+
+  /* content under the heading */
+  .project-content {
+    height: 0px;
+    display: grid;
+    grid-template-columns: 30px 1fr;
+    overflow: auto;
+    transition: height 0.2s;
+    overflow-y: hidden;
+  }
+
+  .project-content.expanded {
+    height: 410px;
+  }
+
+  .project-content .side-guide {
+    margin-top: 10px;
+    border: 1px solid rgb(194,195,214);
+    padding: 2px;
+    width: 30px;
+  }
+
+  .project-content .images-and-description {
+    margin-top: 10px;
+    margin-left: 15px;
+    height: 400px;
+    display: grid;
+    grid-template-rows: 1fr fit-content;
+    grid-gap: 5px;
+  }
+
+  .project-content .images-inner {
+    white-space: nowrap;
+    display: flex;
+    flex-direction: row;
+    gap: 10px;
+    overflow: auto;
+    height: 100%;
+  }
+
+  .images {
+    overflow: hidden;
+  }
+
+  .project-content .description {
+    font-family: eurostile-extended;
+    font-size: 0.7em;
+    letter-spacing: 1px;
+    display: flex;
+    align-items: center;
+  }
+
+  
+
+  @media screen and (max-width: 840px) {
+    #archive-view {
+      display: flex;
+      flex-direction: column;
+    }
+    #categories {
+      display: flex;
+      flex-direction: row;
+      width: 100%;
+      justify-content: space-between;
+      gap: 10px;
+      height: 20px;
+    }
+    #years {
+      display: flex;
+      flex-direction: row;
+      gap: 10px;
+      margin-bottom: 5px;
+      overflow: auto;
+      scrollbar-width: thin;
+    }
+    #content {
+      width: 100%;
+      height: 100%;
+      margin-left: 0px;
+
+    }
+  }
+
+</style>
+
+<div id="mission-wrap">
+  <div id="top-bar">
+    <a id="back" href="/" use:link><Button>BACK</Button></a>
+    <div class="button-head"><div>ARCHIVE</div></div>
+  </div>
+  <div id="archive-view">
+    <div id="sidebar">
+      <div id="categories">
+        <div class="button-head" on:click={() => {if (selCat != "projects") {selCat = "projects"; selYear = null} } }>
+          <div>PROJECTS</div>
+        </div>
+        <div class="button-head" on:click={() => {if (selCat != "campaigns") {selCat = "campaigns"; selYear = null} } }>
+          <div>CAMPAIGNS</div>
+        </div>
+        <div class="button-head" on:click={() => {if (selCat != "press") {selCat = "press"; selYear = null} } }>
+          <div>PRESS</div>
+        </div>
+      </div>
+
+      <div id="years">
+        {#if selCat != ""}
+        {#each Object.keys(data[selCat]).reverse() as year}
+          <div class="button-sub" on:click={() => selectYear(year)}><div>{year}</div></div>
+        {/each}
+        {/if}
+      </div>
+    </div>
+    <div id="content">
+      {#if selYear != null}
+      {#each Object.keys(data[selCat][selYear]) as project}
+      <div class="project">
+
+        <div class="project-row" on:click={e => {toggleExpand(e.currentTarget)}}>
+          <div class="project-indicator plus">
+            <div></div>
+          </div>
+          <div class="project-head">
+            <div>{project}</div>
+          </div>
+        </div>
+
+        <div class="project-content expanded">
+          <div class="side-guide"><div></div></div>
+          <div class="images-and-description">
+            <div class="images">
+              <div class="images-inner">
+                {#each data[selCat][selYear][project]["thumbnails"] as src}
+                <img {src} alt="project">
+                {/each}
+              </div>
+            </div>
+            <div class="description">
+              {data[selCat][selYear][project]["description"]}
+            </div>
+          </div>
+        </div>
+
+      </div>
+      {/each}
+      {/if}
+    </div>
+  </div>
+</div>
