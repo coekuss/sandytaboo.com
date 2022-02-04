@@ -25,8 +25,6 @@
 		console.log(e.target)
 		if (e.target.id == "gallery") $fullImage = []
 	}
-
-
 </script>
 
 <style>
@@ -303,6 +301,10 @@
 		width: calc(100% - 8px);
 		display: grid;
 		place-content: center;
+	}
+
+	.everything {
+		background: green;
 	}
 </style>
 

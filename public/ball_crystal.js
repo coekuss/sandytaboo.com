@@ -3,7 +3,6 @@
 
 		import { OrbitControls } from './js/OrbitControls.js';
 		import { GLTFLoader } from './js/GLTFLoader.js';
-		import { RGBELoader } from './js/RGBELoader.js';
 
 		let camera, scene, renderer, ball, water;
 
@@ -40,8 +39,13 @@
 				render()
 			});
 
+			let pixelRatio = 1
+			if (/Android|webOS|iPhone|iPad|iPod|Opera Mini/i.test(navigator.userAgent) ) {
+				pixelRatio = 3
+			}
+
 			renderer = new THREE.WebGLRenderer( { antialias: true, alpha: true } );
-			renderer.setPixelRatio( window.devicePixelRatio/1.5 );
+			renderer.setPixelRatio( window.devicePixelRatio/pixelRatio );
 			renderer.setSize( window.innerWidth, window.innerHeight );
 			renderer.toneMapping = THREE.ACESFilmicToneMapping;
 			renderer.toneMappingExposure = 1;
