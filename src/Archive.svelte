@@ -1,5 +1,5 @@
 <script>
-  import { blurBg } from "./stores.js"
+  import { blurBg, fullImage } from "./stores.js"
   import Button from "./Button.svelte"
 	import { link } from 'svelte-routing'
   import { onDestroy, onMount } from 'svelte';
@@ -8,14 +8,20 @@
   onDestroy(async () => { $blurBg = false })
 
   let data = {
-    "projects": {
+    "PROJECTS": {
       2020: {
         "Virtual Ascension": {
           "thumbnails": [
             "archive/projects/2020 - Virtual Ascension/1.vaproduct.jpeg",
             "archive/projects/2020 - Virtual Ascension/2.vaproduct1.JPG",
-            "archive/projects/2020 - Virtual Ascension/3.vaskndlss1.JPG",
-            "archive/projects/2020 - Virtual Ascension/4.vataboo1.JPG",
+            "archive/projects/2020 - Virtual Ascension/3.vaskndlss1.jpg",
+            "archive/projects/2020 - Virtual Ascension/4.vataboo1.jpg",
+          ],
+          "full": [
+            "archive/projects/2020 - Virtual Ascension/full/1.vaproduct.jpeg",
+            "archive/projects/2020 - Virtual Ascension/full/2.vaproduct1.JPG",
+            "archive/projects/2020 - Virtual Ascension/full/3.vaskndlss1.JPG",
+            "archive/projects/2020 - Virtual Ascension/full/4.vataboo1.JPG",
           ],
           "description": "In collaboration with SKNDLSS"
         }
@@ -37,6 +43,13 @@
             "archive/projects/2019 - Mirrored Collection/3.TabooHairClip.jpg",
             "archive/projects/2019 - Mirrored Collection/4.NinjaStar.jpg",
             "archive/projects/2019 - Mirrored Collection/5.NinjaStarEarrings.jpg",
+          ],
+          "full": [
+            "archive/projects/2019 - Mirrored Collection/full/1.MirrorCollection.jpg",
+            "archive/projects/2019 - Mirrored Collection/full/2.TribalHairClip.jpg",
+            "archive/projects/2019 - Mirrored Collection/full/3.TabooHairClip.jpg",
+            "archive/projects/2019 - Mirrored Collection/full/4.NinjaStar.jpg",
+            "archive/projects/2019 - Mirrored Collection/full/5.NinjaStarEarrings.jpg",
           ],
           "description": "In collaboration with Michele Yue"
         }
@@ -65,7 +78,7 @@
         }
       }
     },
-    "campaigns": {
+    "CAMPAIGNS": {
       2022: {
         "Taboo Liner Reloaded Onyx Black": {
           "thumbnails": [
@@ -97,7 +110,7 @@
         }
       }
     },
-    "press": {
+    "PRESS": {
       2021: {
         "Vogue": {
           "thumbnails": [
@@ -125,9 +138,8 @@
     }
   }
 
-
-  let selCat = "projects"
-  let selYear = 2020
+  let selCat = Object.keys(data)[0]
+  let selYear = Object.keys(data[selCat]).reverse()[0]
 
   function selectYear(year) {
     document.querySelectorAll(".project-content").forEach(e => {
@@ -137,6 +149,18 @@
       e.classList.add("plus")
     })
     selYear = year
+  }
+
+  function selectCategory(category) {
+    document.querySelectorAll(".project-content").forEach(e => {
+      e.classList.add("expanded")
+    })
+    document.querySelectorAll(".project-indicator").forEach(e => {
+      e.classList.add("plus")
+    })
+    if (selCat == category) return
+    selCat = category
+    selYear = Object.keys(data[selCat]).reverse()[0]
   }
 
   function toggleExpand(e) {
@@ -177,6 +201,7 @@
     margin-top: 10px;
     border: 1px solid rgb(194,195,214);
     padding: 2px;
+    transition: 0.1s;
   }
 
   .button-head div, .button-sub div {
@@ -186,6 +211,7 @@
     place-items: center;
     place-content: center;
     background: rgba(194,195,214,0.15);
+    transition: 0.1s;
   }
 
   .button-sub {
@@ -195,7 +221,28 @@
     margin-top: 10px;
     border: 1px solid rgba(194,195,214,0.15);
     padding: 2px;
+    transition: 0.1s;
   }
+
+  .button-head.category.selected, .button-head.category:hover {
+    box-shadow: 0px 0px 10px rgba(255, 255, 255, 0.5);
+    text-shadow: 0px 0px 5px white;
+  }
+
+  .button-head.category:hover div, .button-head.category.selected div {
+    background: rgba(194,195,214,0.4);
+  }
+
+  .button-sub:hover, .button-sub.selected {
+    box-shadow: 0px 0px 10px rgba(255, 255, 255, 0.5);
+    text-shadow: 0px 0px 5px white;
+    border-color: rgba(194,195,214,0.7);
+  }
+
+  .button-sub:hover div, .button-sub.selected div {
+    background: rgba(194,195,214,0.4);
+  }
+
 
   #archive-view {
     padding-top: 60px;
@@ -376,6 +423,8 @@
     }
   }
 
+  
+
 </style>
 
 <div id="mission-wrap">
@@ -386,21 +435,17 @@
   <div id="archive-view">
     <div id="sidebar">
       <div id="categories">
-        <div class="button-head" on:click={() => {if (selCat != "projects") {selCat = "projects"; selYear = null} } }>
-          <div>PROJECTS</div>
-        </div>
-        <div class="button-head" on:click={() => {if (selCat != "campaigns") {selCat = "campaigns"; selYear = null} } }>
-          <div>CAMPAIGNS</div>
-        </div>
-        <div class="button-head" on:click={() => {if (selCat != "press") {selCat = "press"; selYear = null} } }>
-          <div>PRESS</div>
-        </div>
+        {#each Object.keys(data) as category}
+          <div class="button-head category" class:selected={ category == selCat } on:click={() => selectCategory(category)}>
+            <div>{category}</div>
+          </div>
+        {/each}
       </div>
 
       <div id="years">
         {#if selCat != ""}
         {#each Object.keys(data[selCat]).reverse() as year}
-          <div class="button-sub" on:click={() => selectYear(year)}><div>{year}</div></div>
+          <div class="button-sub" class:selected={selYear == year} on:click={() => selectYear(year)}><div>{year}</div></div>
         {/each}
         {/if}
       </div>
@@ -424,8 +469,10 @@
           <div class="images-and-description">
             <div class="images">
               <div class="images-inner">
-                {#each data[selCat][selYear][project]["thumbnails"] as src}
-                <img {src} alt="project">
+                {#each data[selCat][selYear][project]["thumbnails"] as src, i}
+                <img {src} on:click={
+                  () => $fullImage = [data[selCat][selYear][project]["full"], i, data[selCat][selYear][project]["full"].length]
+                  } alt="project">
                 {/each}
               </div>
             </div>

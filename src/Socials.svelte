@@ -57,15 +57,34 @@
     place-items: center;
     place-content: center;
     background: rgba(194,195,214,0.15);
+    transition: 0.1s;
   }
 
   .button-sub {
     font-family: eurostile-extended;
-    width: 190px;
+    width: 250px;
     height: 26px;
     margin-top: 10px;
-    border: 1px solid rgba(194,195,214,0.15);
+    border-width: 1px;
+    border-style: solid;
+    border-color: rgba(194,195,214,0.15);
     padding: 2px;
+    transition: 0.1s;
+  }
+
+  .button-sub:hover {
+    box-shadow: 0px 0px 10px rgba(255, 255, 255, 0.5);
+    text-shadow: 0px 0px 5px white;
+    border-color: rgba(194,195,214,0.7);
+  }
+
+  .button-sub:hover div {
+    background: rgba(194,195,214,0.4);
+  }
+
+  a {
+    text-decoration: none;
+    color: inherit;
   }
 
 </style>
@@ -78,10 +97,11 @@
     </div>
   </div>
   <div id="links">
-    <div class="button-sub"><div>INSTAGRAM</div></div>
-    <div class="button-sub"><div>TWITTER</div></div>
-    <div class="button-sub"><div>YOUTUBE</div></div>
-    <div class="button-sub"><div>SOUNDCLOUD</div></div>
-    <div class="button-sub"><div>EMAILS</div></div>
+    <div class="button-sub"><a href="http://instagram.com/tabootakeover"><div>COMMUNITY</div></a></div>
+    <div class="button-sub"><a href="http://twitter.com/tabootakeover"><div>ANNOUNCEMENTS</div></a></div>
+    <div class="button-sub"><a href="http://instagram.com/sandytaboo"><div>INSTAGRAM</div></a></div>
+    <div class="button-sub"><a href="http://twitter.com/sandytaboo"><div>TWITTER</div></a></div>
+    <div class="button-sub"><a href="http://youtube.com/sandytaboo"><div>YOUTUBE</div></a></div>
+    <div class="button-sub"><a href="http://soundcloud.com/sandytaboo"><div>SOUNDCLOUD</div></a></div>
   </div>
 </div>

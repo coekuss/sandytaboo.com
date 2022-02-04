@@ -28,9 +28,6 @@
 
 					const loader = new GLTFLoader();
 					loader.load( './assets/Taboo_Ball_16b.glb', function ( gltf ) {
-						// gltf.scene.traverse(c => {
-						//   if (c.isMesh) ball = c
-						// })
 						ball = gltf.scene
 						scene.add( ball )
 						gltf.scene.scale.set(0.0015, 0.0015, 0.0015)
@@ -38,7 +35,6 @@
 					});
 					loader.load( './assets/Taboo_Water_20b.glb', function ( gltf ) {
 						water = gltf.scene
-						console.log(gltf.scene)
 
 						scene.add( water )
 
