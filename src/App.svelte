@@ -259,19 +259,18 @@
 		display: grid;
 		place-content: center;
 		place-items: center;
-		grid-template-columns: 30px 60px 30px;
+		grid-template-columns: 30px min-content 30px;
 		color: white;
 	}
 
 	#gallery .scrollbutton {
     border: 2px solid rgb(174,175,194);
     padding: 1px;
-		padding-bottom: 3px;
 		font-size: 1.4em;
 		display: grid;
 		place-items: center;
-		height: 30px;
-		width: 30px;
+		height: 32px;
+		width: 32px;
 		-webkit-user-select: none;
 		user-select: none;
 		cursor: pointer;
@@ -298,6 +297,8 @@
 
 	#imagenum {
     background: rgba(110,113,158, 0.5);
+		padding: 0px 10px 0px 10px;
+		box-sizing: border-box;
 		height: 100%;
 		width: calc(100% - 8px);
 		display: grid;
@@ -329,7 +330,7 @@
 	</div>
 
 	{#if $fullImage != ""}
-		<div id="gallery" transition:fade={{duration: 200}}>
+		<div id="gallery" transition:fade={{duration: 100}}>
 			<div id="gallery-inner">
 
 				<div id="x" on:click={() => $fullImage = ""}>
