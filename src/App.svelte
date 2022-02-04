@@ -13,6 +13,20 @@
 	$: if ($fullImage != []) {
 		console.log($fullImage)
 	}
+	
+	function handleKeydown(e) {
+		console.log(e)
+		if (e.key == "Escape") $fullImage = [] 
+		if ((e.key == "ArrowRight") && ($fullImage[1] < $fullImage[2]-1)) $fullImage[1] += 1
+		if ((e.key == "ArrowLeft") && ($fullImage[1] > 0)) $fullImage[1] -= 1
+	}
+
+	function handleMousedown(e) {
+		console.log(e.target)
+		if (e.target.id == "gallery") $fullImage = []
+	}
+
+
 </script>
 
 <style>
@@ -184,10 +198,16 @@
 
 	#gallery {
 		position: absolute;
+		width: 100%;
+		height: 100%;
 		z-index: 5;
 		display: grid;
 		place-items: center;
 		transition: 0.2s;
+	}
+
+	#gallery-inner {
+		position: relative;
 	}
 	
 	#gallery img {
@@ -285,6 +305,8 @@
 	}
 </style>
 
+<svelte:window on:mousedown={handleMousedown} on:keydown={handleKeydown}/>
+
 <div id="wrapper">
 	<div id="circles">
 		<img class="circle a" src="assets/circle.svg" alt="test">
@@ -308,22 +330,25 @@
 
 	{#if $fullImage != ""}
 		<div id="gallery" transition:fade={{duration: 200}}>
+			<div id="gallery-inner">
 
-			<div id="x" on:click={() => $fullImage = ""}>
-				<div>X</div>
-			</div>
-
-			<div id="scrollbuttons">
-				<div class="scrollbutton">
-					<div on:click={() => {if ($fullImage[1] > 0) $fullImage[1] -= 1} }>{'<'}</div>
+				<div id="x" on:click={() => $fullImage = ""}>
+					<div>X</div>
 				</div>
-				<div id="imagenum">{$fullImage[1]+1}/{$fullImage[2]}</div>
-				<div class="scrollbutton">
-					<div on:click={() => {if ($fullImage[1] < $fullImage[2]-1) $fullImage[1] += 1}}>{'>'}</div>
+	
+				<div id="scrollbuttons">
+					<div class="scrollbutton">
+						<div on:click={() => {if ($fullImage[1] > 0) $fullImage[1] -= 1} }>{'<'}</div>
+					</div>
+					<div id="imagenum">{$fullImage[1]+1}/{$fullImage[2]}</div>
+					<div class="scrollbutton">
+						<div on:click={() => {if ($fullImage[1] < $fullImage[2]-1) $fullImage[1] += 1}}>{'>'}</div>
+					</div>
 				</div>
+	
+				<img transition:fade src={ $fullImage[0][$fullImage[1]] } alt="gallery">
+	
 			</div>
-
-			<img transition:fade src={ $fullImage[0][$fullImage[1]] } alt="gallery">
 
 		</div>
 	{/if}

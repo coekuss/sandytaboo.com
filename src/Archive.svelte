@@ -392,6 +392,10 @@
     align-items: center;
   }
 
+  .project-content img {
+    cursor: pointer;
+  }
+
   
 
   @media screen and (max-width: 840px) {
