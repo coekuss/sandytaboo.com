@@ -17,34 +17,31 @@
 			camera.position.set( -1.8, 0.6, 10 );
 			scene = new THREE.Scene();
 
-			new RGBELoader()
-				.load( './assets/hdri.hdr', function ( texture ) {
-					texture.mapping = THREE.EquirectangularReflectionMapping;
-					scene.background = null;
-					scene.environment = texture;
-					render();
+			new THREE.TextureLoader().load( './assets/hdri.jpg', function ( texture ) {
+				texture.mapping = THREE.EquirectangularReflectionMapping;
+				texture.encoding = THREE.sRGBEncoding;
+				scene.background = null;
+				scene.environment = texture;
+			})
 
-					var mesh = null
+			const loader = new GLTFLoader();
+			loader.load( './assets/Taboo_Ball_16b.glb', function ( gltf ) {
+				ball = gltf.scene
+				scene.add( ball )
+				gltf.scene.scale.set(0.0015, 0.0015, 0.0015)
+				render()
+			});
+			loader.load( './assets/Taboo_Water_20b.glb', function ( gltf ) {
+				water = gltf.scene
 
-					const loader = new GLTFLoader();
-					loader.load( './assets/Taboo_Ball_16b.glb', function ( gltf ) {
-						ball = gltf.scene
-						scene.add( ball )
-						gltf.scene.scale.set(0.0015, 0.0015, 0.0015)
-						render()
-					});
-					loader.load( './assets/Taboo_Water_20b.glb', function ( gltf ) {
-						water = gltf.scene
+				scene.add( water )
 
-						scene.add( water )
-
-						gltf.scene.scale.set(0.0015, 0.0015, 0.0015)
-						render()
-					});
-				});
+				gltf.scene.scale.set(0.0015, 0.0015, 0.0015)
+				render()
+			});
 
 			renderer = new THREE.WebGLRenderer( { antialias: true, alpha: true } );
-			renderer.setPixelRatio( window.devicePixelRatio );
+			renderer.setPixelRatio( window.devicePixelRatio/1.5 );
 			renderer.setSize( window.innerWidth, window.innerHeight );
 			renderer.toneMapping = THREE.ACESFilmicToneMapping;
 			renderer.toneMappingExposure = 1;
@@ -77,6 +74,6 @@
 				renderer.render(scene, camera)
 		}
 
-		window.onmousemove = (e) => {
-			if (ball) ball.rotation.x = e.clientY/7000
-		}
+		// window.onmousemove = (e) => {
+		// 	if (ball) ball.rotation.x = e.clientY/7000
+		// }
