@@ -1,10 +1,17 @@
 
-		import * as THREE from './js/three.module.js';
+		import * as THREE from './three/build/three.module.js';
 
-		import { OrbitControls } from './js/OrbitControls.js';
-		import { GLTFLoader } from './js/GLTFLoader.js';
+		import { OrbitControls } from './three/examples/jsm/controls/OrbitControls.js';
+		import { GLTFLoader } from './three/examples/jsm/loaders/GLTFLoader.js';
+		import { EffectComposer } from './three/examples/jsm/postprocessing/EffectComposer.js';
+		import { RenderPass } from './three/examples/jsm/postprocessing/RenderPass.js';
+		import { UnrealBloomPass } from './three/examples/jsm/postprocessing/UnrealBloomPassTransparencyFix.js';
+		import { SMAAPass } from './three/examples/jsm/postprocessing/SMAAPass.js';
+		import { ShaderPass } from './three/examples/jsm/postprocessing/ShaderPass.js';
 
-		let camera, scene, renderer, ball, water;
+		let camera, scene, renderer, ball, water, composer;
+		var height = window.innerHeight
+		var width = window.innerWidth
 
 		init();
 		render();
@@ -12,7 +19,7 @@
 
 		function init() {
 
-			camera = new THREE.PerspectiveCamera( 10, window.innerWidth / window.innerHeight, 0.25, 20 );
+			camera = new THREE.PerspectiveCamera( 10, width / height, 0.25, 20 );
 			camera.position.set( -1.8, 0.6, 10 );
 			scene = new THREE.Scene();
 
@@ -46,10 +53,24 @@
 
 			renderer = new THREE.WebGLRenderer( { antialias: true, alpha: true } );
 			renderer.setPixelRatio( window.devicePixelRatio/pixelRatio );
-			renderer.setSize( window.innerWidth, window.innerHeight );
+			renderer.setSize( width, height );
 			renderer.toneMapping = THREE.ACESFilmicToneMapping;
 			renderer.toneMappingExposure = 1;
 			renderer.outputEncoding = THREE.sRGBEncoding;
+			renderer.setClearColor(0xFF0000, 0)
+
+			
+			// bloom effects start here
+			composer = new EffectComposer( renderer )//, renderTarget )
+			composer.addPass( new RenderPass( scene, camera ) )
+
+			const bloomPass = new UnrealBloomPass( new THREE.Vector2( width, height ), 3, 1, 0.1 );
+			composer.addPass( bloomPass );
+
+
+
+
+
 
 			document.querySelector("#three").appendChild( renderer.domElement );
 
@@ -61,10 +82,11 @@
 		}
 
 		function onWindowResize() {
-			camera.aspect = window.innerWidth / window.innerHeight;
+			camera.aspect = width / height;
 			camera.updateProjectionMatrix();
-			renderer.setSize( window.innerWidth, window.innerHeight );
 			render();
+			renderer.setSize( width, height );
+			composer.setSize( width, height );
 		}
 
 		function render() {
@@ -76,6 +98,8 @@
 				if (water) { water.rotation.y += 0.006 }
 				if (ball) { ball.rotation.y += 0.003 }
 				renderer.render(scene, camera)
+
+				composer.render();
 		}
 
 		// window.onmousemove = (e) => {
