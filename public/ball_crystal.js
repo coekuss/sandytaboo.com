@@ -3,83 +3,14 @@
 
 		import { OrbitControls } from './three/examples/jsm/controls/OrbitControls.js';
 		import { GLTFLoader } from './three/examples/jsm/loaders/GLTFLoader.js';
+		import { RGBELoader } from './three/examples/jsm/loaders/RGBELoader.js';
 		import { EffectComposer } from './three/examples/jsm/postprocessing/EffectComposer.js';
 		import { RenderPass } from './three/examples/jsm/postprocessing/RenderPass.js';
 		import { UnrealBloomPass } from './three/examples/jsm/postprocessing/UnrealBloomPassTransparencyFix.js';
-		import { SMAAPass } from './three/examples/jsm/postprocessing/SMAAPass.js';
-		import { ShaderPass } from './three/examples/jsm/postprocessing/ShaderPass.js';
 
-		let camera, scene, renderer, ball, water, composer;
+		let camera, scene, renderer, ball, waterScene, composer;
 		var height = window.innerHeight
 		var width = window.innerWidth
-
-		init();
-		render();
-		animate()
-
-		function init() {
-
-			camera = new THREE.PerspectiveCamera( 10, width / height, 0.25, 20 );
-			camera.position.set( -1.8, 0.6, 10 );
-			scene = new THREE.Scene();
-
-			new THREE.TextureLoader().load( './assets/hdri.jpg', function ( texture ) {
-				texture.mapping = THREE.EquirectangularReflectionMapping;
-				texture.encoding = THREE.sRGBEncoding;
-				scene.background = null;
-				scene.environment = texture;
-			})
-
-			const loader = new GLTFLoader();
-			loader.load( './assets/Taboo_Ball_16b.glb', function ( gltf ) {
-				ball = gltf.scene
-				scene.add( ball )
-				gltf.scene.scale.set(0.0015, 0.0015, 0.0015)
-				render()
-			});
-			loader.load( './assets/Taboo_Water_20b.glb', function ( gltf ) {
-				water = gltf.scene
-
-				scene.add( water )
-
-				gltf.scene.scale.set(0.0015, 0.0015, 0.0015)
-				render()
-			});
-
-			let pixelRatio = 1
-			if (/Android|webOS|iPhone|iPad|iPod|Opera Mini/i.test(navigator.userAgent) ) {
-				pixelRatio = 3
-			}
-
-			renderer = new THREE.WebGLRenderer( { antialias: true, alpha: true } );
-			renderer.setPixelRatio( window.devicePixelRatio/pixelRatio );
-			renderer.setSize( width, height );
-			renderer.toneMapping = THREE.ACESFilmicToneMapping;
-			renderer.toneMappingExposure = 1;
-			renderer.outputEncoding = THREE.sRGBEncoding;
-			renderer.setClearColor(0xFF0000, 0)
-
-			
-			// bloom effects start here
-			composer = new EffectComposer( renderer )//, renderTarget )
-			composer.addPass( new RenderPass( scene, camera ) )
-
-			const bloomPass = new UnrealBloomPass( new THREE.Vector2( width, height ), 3, 1, 0.1 );
-			composer.addPass( bloomPass );
-
-
-
-
-
-
-			document.querySelector("#three").appendChild( renderer.domElement );
-
-			const controls = new OrbitControls( camera, renderer.domElement );
-			controls.enabled = false
-
-			window.addEventListener( 'resize', onWindowResize );
-
-		}
 
 		function onWindowResize() {
 			camera.aspect = width / height;
@@ -87,21 +18,113 @@
 			render();
 			renderer.setSize( width, height );
 			composer.setSize( width, height );
+			composer.render()
 		}
 
 		function render() {
 			renderer.render( scene, camera );
 		}
 
+		////////////////////
+		const mouse = new THREE.Vector2();
+		const target = new THREE.Vector2();
+		const windowHalf = new THREE.Vector2( window.innerWidth / 2, window.innerHeight / 2 );
+
 		function animate() {
+				target.y = ( 1 - mouse.y ) * 0.0007;
+
 				requestAnimationFrame(animate)
-				if (water) { water.rotation.y += 0.006 }
-				if (ball) { ball.rotation.y += 0.003 }
+				if (waterScene) { waterScene.rotation.y += 0.006 }
+				if (ball) { ball.rotation.y += 0.003; 
+					ball.rotation.x += 0.05 * (target.y - ball.rotation.x) }
 				renderer.render(scene, camera)
 
 				composer.render();
 		}
+		
+		window.onmousemove = (e) => {
+			mouse.x = ( e.clientX - windowHalf.x );
+			mouse.y = ( e.clientY - windowHalf.x );
+		}
 
-		// window.onmousemove = (e) => {
-		// 	if (ball) ball.rotation.x = e.clientY/7000
-		// }
+		/////////////////////
+
+
+		camera = new THREE.PerspectiveCamera( 10, width / height, 0.25, 20 );
+		camera.position.set( -1.8, 0.6, 10 );
+		scene = new THREE.Scene();
+
+
+		const textureLoader = new THREE.TextureLoader()
+		const environment = textureLoader.load( './assets/hdri.jpg', function ( texture ) {
+			texture.mapping = THREE.EquirectangularReflectionMapping;
+			texture.encoding = THREE.sRGBEncoding;
+			scene.background = null;
+			scene.environment = texture;
+		})
+
+		const loader = new GLTFLoader();
+		loader.load( './assets/Taboo_Ball_16b.glb', function ( gltf ) {
+			ball = gltf.scene
+			scene.add( ball )
+			gltf.scene.scale.set(0.0015, 0.0015, 0.0015)
+			render()
+		});
+
+		loader.load( './assets/Taboo_Water_20b.glb', function ( gltf ) {
+			// var water
+			// gltf.scene.traverse(m => { if (m.type === "Mesh") water = m})
+			// console.log(water)
+			// const waterGeometry = water.geometry.clone()
+			// console.log(waterGeometry)
+			
+
+			// mesh = new THREE.Mesh(waterGeometry, material)
+			// mesh.scale.set(0.1, 0.1, 0.1);
+			// scene.add(mesh)
+
+			waterScene = gltf.scene
+			scene.add( waterScene )
+
+			gltf.scene.scale.set(0.0015, 0.0015, 0.0015)
+			render()
+		});
+
+
+
+
+
+
+		let pixelRatio = 1
+		if (/Android|webOS|iPhone|iPad|iPod|Opera Mini/i.test(navigator.userAgent) ) {
+			pixelRatio = 3
+		}
+
+		renderer = new THREE.WebGLRenderer( { antialias: true, alpha: true } );
+		renderer.setPixelRatio( window.devicePixelRatio/pixelRatio );
+		renderer.setSize( width, height );
+		renderer.toneMapping = THREE.ACESFilmicToneMapping;
+		renderer.toneMappingExposure = 1;
+		renderer.outputEncoding = THREE.sRGBEncoding;
+		renderer.setClearColor(0xFF0000, 0)
+
+		
+		// bloom effects start here
+		composer = new EffectComposer( renderer )//, renderTarget )
+		composer.addPass( new RenderPass( scene, camera ) )
+
+		const bloomPass = new UnrealBloomPass( new THREE.Vector2( width, height ), 3, 1, 0.1 );
+		composer.addPass( bloomPass );
+
+
+		document.querySelector("#three").appendChild( renderer.domElement );
+
+		const controls = new OrbitControls( camera, renderer.domElement );
+		controls.enabled = false
+
+		window.addEventListener( 'resize', onWindowResize );
+
+		render()
+		animate()
+		
+
