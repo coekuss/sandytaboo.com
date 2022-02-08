@@ -3,7 +3,6 @@
 
 		import { OrbitControls } from './three/examples/jsm/controls/OrbitControls.js';
 		import { GLTFLoader } from './three/examples/jsm/loaders/GLTFLoader.js';
-		import { RGBELoader } from './three/examples/jsm/loaders/RGBELoader.js';
 		import { EffectComposer } from './three/examples/jsm/postprocessing/EffectComposer.js';
 		import { RenderPass } from './three/examples/jsm/postprocessing/RenderPass.js';
 		import { UnrealBloomPass } from './three/examples/jsm/postprocessing/UnrealBloomPassTransparencyFix.js';
@@ -35,7 +34,7 @@
 			requestAnimationFrame(animate)
 			if (waterScene) { waterScene.rotation.y += 0.006 }
 			if (ball) {
-				target.y = -(( 1 - mouse.y ) * 0.0006)
+				target.y = -(( 1 - mouse.y ) * 0.0005)
 				target.x += -(( 1 - mouse.x ) * 0.00003)
 				ball.rotation.y += 0.05 * (target.x - ball.rotation.y)
 				ball.rotation.x += 0.05 * (target.y - ball.rotation.x)
