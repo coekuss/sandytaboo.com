@@ -36,7 +36,7 @@
 			if (waterScene) { waterScene.rotation.y += 0.006 }
 			if (ball) {
 				target.y = -(( 1 - mouse.y ) * 0.0006)
-				target.x += -(( 1 - mouse.x ) * 0.00001)
+				target.x += -(( 1 - mouse.x ) * 0.00003)
 				ball.rotation.y += 0.05 * (target.x - ball.rotation.y)
 				ball.rotation.x += 0.05 * (target.y - ball.rotation.x)
 			}
