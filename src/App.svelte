@@ -10,9 +10,9 @@
 
 	export let url=""
 
-	$: if ($fullImage != []) {
-		console.log($fullImage)
-	}
+	// $: if ($fullImage != []) {
+	// 	console.log($fullImage)
+	// }
 	
 	function handleKeydown(e) {
 		console.log(e)

@@ -30,16 +30,19 @@
 		const target = new THREE.Vector2();
 		const windowHalf = new THREE.Vector2( window.innerWidth / 2, window.innerHeight / 2 );
 
+		target.x = 0.004
 		function animate() {
-				target.y = ( 1 - mouse.y ) * 0.0007;
+			requestAnimationFrame(animate)
+			if (waterScene) { waterScene.rotation.y += 0.006 }
+			if (ball) {
+				target.y = -(( 1 - mouse.y ) * 0.0006)
+				target.x += -(( 1 - mouse.x ) * 0.00001)
+				ball.rotation.y += 0.05 * (target.x - ball.rotation.y)
+				ball.rotation.x += 0.05 * (target.y - ball.rotation.x)
+			}
+			renderer.render(scene, camera)
 
-				requestAnimationFrame(animate)
-				if (waterScene) { waterScene.rotation.y += 0.006 }
-				if (ball) { ball.rotation.y += 0.003; 
-					ball.rotation.x += 0.05 * (target.y - ball.rotation.x) }
-				renderer.render(scene, camera)
-
-				composer.render();
+			composer.render();
 		}
 		
 		window.onmousemove = (e) => {
