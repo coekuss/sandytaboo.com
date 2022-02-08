@@ -7,11 +7,14 @@
 		import { RenderPass } from './three/examples/jsm/postprocessing/RenderPass.js';
 		import { UnrealBloomPass } from './three/examples/jsm/postprocessing/UnrealBloomPassTransparencyFix.js';
 
-		let camera, scene, renderer, ball, waterScene, composer;
+		let camera, scene, renderer, ball, water, composer;
 		var height = window.innerHeight
 		var width = window.innerWidth
 
 		function onWindowResize() {
+			height = window.innerHeight
+			width = window.innerWidth
+
 			camera.aspect = width / height;
 			camera.updateProjectionMatrix();
 			render();
@@ -24,15 +27,15 @@
 			renderer.render( scene, camera );
 		}
 
-		////////////////////
+		/////////smooth mouse rotation///////////
 		const mouse = new THREE.Vector2();
 		const target = new THREE.Vector2();
 		const windowHalf = new THREE.Vector2( window.innerWidth / 2, window.innerHeight / 2 );
 
-		target.x = 0.004
+		mouse.x = 150
 		function animate() {
 			requestAnimationFrame(animate)
-			if (waterScene) { waterScene.rotation.y += 0.006 }
+			if (water) { water.rotation.y += 0.006 }
 			if (ball) {
 				target.y = -(( 1 - mouse.y ) * 0.0005)
 				target.x += -(( 1 - mouse.x ) * 0.00003)
@@ -48,7 +51,6 @@
 			mouse.x = ( e.clientX - windowHalf.x );
 			mouse.y = ( e.clientY - windowHalf.x );
 		}
-
 		/////////////////////
 
 
@@ -73,24 +75,70 @@
 			render()
 		});
 
+
+
+
+		/////clear water/////
+
+		const normalMapTexture = textureLoader.load("./assets/normal.jpg")
+		normalMapTexture.wrapS = THREE.RepeatWrapping
+		normalMapTexture.wrapT = THREE.RepeatWrapping
+		normalMapTexture.repeat.set(3, 3)
+
+		const material = new THREE.MeshPhysicalMaterial({
+			color: 0xffffff,
+			metalness: 0,
+			roughness: 0.2,
+			transmission: 1.05,
+			ior: 1.5,
+			reflectivity: 0.5,
+			thickness: 2.5,
+			envMap: environment,
+			envMapIntensity: 1.5,
+			clearcoat: 1,
+			clearcoatRoughness: 0.1,
+			normalScale: new THREE.Vector2(0.3),
+			normalMap: normalMapTexture,
+			clearcoatNormalMap: normalMapTexture,
+			clearcoatNormalScale: new THREE.Vector2(0.2),
+		})
+
+		water = null
 		loader.load( './assets/Taboo_Water_20b.glb', function ( gltf ) {
-			// var water
-			// gltf.scene.traverse(m => { if (m.type === "Mesh") water = m})
-			// console.log(water)
-			// const waterGeometry = water.geometry.clone()
-			// console.log(waterGeometry)
-			
-
-			// mesh = new THREE.Mesh(waterGeometry, material)
-			// mesh.scale.set(0.1, 0.1, 0.1);
-			// scene.add(mesh)
-
-			waterScene = gltf.scene
-			scene.add( waterScene )
-
-			gltf.scene.scale.set(0.0015, 0.0015, 0.0015)
+			gltf.scene.traverse(m => { if (m.type === "Mesh") water = m})
+			console.log(water)
+			const waterGeometry = water.geometry.clone()
+		
+			water = new THREE.Mesh(waterGeometry, material)
+			water.scale.set(0.0015, 0.0015, 0.0015);
+			scene.add(water)
 			render()
 		});
+		/////////////////////
+
+
+
+
+		
+
+
+		// loader.load( './assets/Taboo_Water_20b.glb', function ( gltf ) {
+		// 	var water
+		// 	gltf.scene.traverse(m => { if (m.type === "Mesh") water = m})
+		// 	console.log(water)
+		// 	const waterGeometry = water.geometry.clone()
+		// 	console.log(waterGeometry)
+		
+		// 	mesh = new THREE.Mesh(waterGeometry, material)
+		// 	mesh.scale.set(0.1, 0.1, 0.1);
+		// 	scene.add(mesh)
+
+		// 	// waterScene = gltf.scene
+		// 	// scene.add( waterScene )
+
+		// 	gltf.scene.scale.set(0.0015, 0.0015, 0.0015)
+		// 	render()
+		// });
 
 
 
