@@ -83,7 +83,7 @@
 			color: 0xffffff,
 			metalness: 0,
 			roughness: 0.2,
-			transmission: 1.3,
+			transmission: 1.15,
 			ior: 1.5,
 			reflectivity: 0.5,
 			thickness: 0.5,
