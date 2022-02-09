@@ -79,28 +79,29 @@
 
 
 		/////clear water/////
-		const material = new THREE.MeshPhysicalMaterial({
-			color: 0xffffff,
-			metalness: 0,
-			roughness: 0.2,
-			transmission: 1.15,
-			ior: 1.5,
-			reflectivity: 0.5,
-			thickness: 0.5,
-			clearcoat: 1,
-			clearcoatRoughness: 0.1
-		})
+		// const material = new THREE.MeshPhysicalMaterial({
+		// 	color: 0xffffff,
+		// 	metalness: 0,
+		// 	roughness: 0.2,
+		// 	transmission: 1.15,
+		// 	ior: 1.5,
+		// 	reflectivity: 0.5,
+		// 	thickness: 0.5,
+		// 	clearcoat: 1,
+		// 	clearcoatRoughness: 0.1
+		// })
 
 		loader.load( './assets/Taboo_Water_20b.glb', function ( gltf ) {
-			let loadedWater
-			gltf.scene.traverse(m => { if (m.type === "Mesh") loadedWater = m})
-			const waterGeometry = loadedWater.geometry.clone()
-			waterGeometry.rotateZ(5.1)
+			// let loadedWater
+			// gltf.scene.traverse(m => { if (m.type === "Mesh") loadedWater = m})
+			// const waterGeometry = loadedWater.geometry.clone()
+			// waterGeometry.rotateZ(5.1)
 		
-			water = new THREE.Mesh(waterGeometry, material)
+			// water = new THREE.Mesh(waterGeometry, material)
+			water = gltf.scene
 			water.scale.set(0.0015, 0.0015, 0.0015);
 			scene.add(water)
-		});
+		})
 		/////////////////////
 
 
