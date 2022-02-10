@@ -26,19 +26,22 @@
 
   @media screen and (max-width: 840px) {
     #menu-inner {
-      width: 500px;
       justify-content: center;
-      grid-gap: 10%;
+      align-content: space-between;
+      grid-template-columns: 150px 150px 150px;
+      grid-template-rows: auto auto;
+      justify-content: space-between;
     }
 
     .mission {
-      transform: translate(210px, 718px)
+      grid-column-start: 1;
+      grid-row-start: 2;
     }
 
     .archive {
-      transform: translate(-210px, 718px)
+      grid-column-start: 3;
+      grid-row-start: 2;
     }
-    
   }
 
 </style>
