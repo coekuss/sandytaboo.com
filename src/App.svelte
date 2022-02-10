@@ -40,7 +40,8 @@
 	}
 
 	#window-container {
-		height: fit-content;
+		background: red;
+		height: 100%;
 		display: grid;
 		max-width: 100%;
 		width: 1100px;
@@ -103,6 +104,7 @@
 
 	#three {
 		position: absolute;
+		margin-top: 45px;
 		width: 100%;
 		z-index: 1;
 	}
