@@ -70,7 +70,7 @@
 		height: 100%;
 		padding: 7px;
 		backdrop-filter: blur(0px);
-		-webkit-backdrop-filer: blur(0px);
+		-webkit-backdrop-filter: blur(0px);
 		box-sizing: border-box;
 		border-top: 7px solid rgb(126,129,168);
 		border-bottom: 7px solid rgb(126,129,168);
@@ -83,7 +83,7 @@
 	#window-inner.blur {
 		background: rgba(56,59,98, 0.5);
 		backdrop-filter: blur(7px);
-		-webkit-backdrop-filer: blur(7px);
+		-webkit-backdrop-filter: blur(7px);
 	}
 
 	#video-container {

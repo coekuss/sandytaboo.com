@@ -71,7 +71,7 @@
     <p>TABOO (est. 2018) is a revolution, community, and brand confronting change and creating a new future.</p>
     <p>TABOO represents the black sheep of families, the brave and wounded.</p>
     <p>Taboo World is a place where spirituality, community, and art unite.</p>
-    <p>A place where we can be timeless, shapeshifting, bold, unfiltered, and together,.</p>
+    <p>A place where we can be timeless, shapeshifting, bold, unfiltered, and together.</p>
     <p>Our digital platform has been reached worldwide and growing by the day!</p>
     <p>Join Taboo World today to help create the freakiest and freest future.</p>
   </div>
