@@ -40,7 +40,6 @@
 	}
 
 	#window-container {
-		background: red;
 		height: 100%;
 		display: grid;
 		max-width: 100%;
