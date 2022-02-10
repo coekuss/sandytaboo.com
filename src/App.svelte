@@ -36,6 +36,7 @@
 	}
 
 	#window-container {
+		max-height: 100%;
 		height: 700px;
 		max-width: 100%;
 		width: 1100px;
