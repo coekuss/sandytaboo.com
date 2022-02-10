@@ -44,7 +44,7 @@
 		display: grid;
 		max-width: 100%;
 		width: 1100px;
-		grid-template-rows: 45px 1fr;
+		grid-template-rows: 45px auto;
 		max-height: 100%;
 		height: 700px;
 	}
@@ -61,6 +61,7 @@
 	}
 
 	#the-window {
+		height: 100%;
 		background: url("data:image/svg+xml,%3csvg width='100%25' height='100%25' xmlns='http://www.w3.org/2000/svg'%3e%3crect width='100%25' height='100%25' fill='none' stroke='rgba(126,129,168,0.6)' stroke-width='4' stroke-dasharray='2%2c4' stroke-dashoffset='29' stroke-linecap='butt'/%3e%3c/svg%3e"), 
 			linear-gradient(rgba(126,129,168,0.4) 0%, rgba(0,0,0,0) 33%,rgba(0,0,0,0) 66%, rgba(126,129,168,0.4) 100%);
 		z-index: 1;
@@ -73,6 +74,7 @@
 		height: 100%;
 		padding: 7px;
 		backdrop-filter: blur(0px);
+		-webkit-backdrop-filer: blur(0px);
 		box-sizing: border-box;
 		border-top: 7px solid rgb(126,129,168);
 		border-bottom: 7px solid rgb(126,129,168);
@@ -83,6 +85,7 @@
 
 	#window-inner.blur {
 		backdrop-filter: blur(7px);
+		-webkit-backdrop-filer: blur(7px);
 	}
 
 	#video-container {
