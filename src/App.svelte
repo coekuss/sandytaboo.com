@@ -39,10 +39,28 @@
 		overflow:hidden;
 	}
 
-	#the-window {
+	#window-container {
+		height: fit-content;
+		display: grid;
 		max-width: 100%;
 		width: 1100px;
-		height: 650px;
+		grid-template-rows: 45px 1fr;
+		max-height: 100%;
+		height: 700px;
+	}
+
+	#tagline {
+		width: 100%;
+		top: -50px;
+		color: white;
+		z-index: 2;
+		font-family: neue-haas-grotesk-display, sans-serif;
+		text-shadow: 0px 0px 10px white;
+		letter-spacing: 10px;
+		text-align: center;
+	}
+
+	#the-window {
 		background: url("data:image/svg+xml,%3csvg width='100%25' height='100%25' xmlns='http://www.w3.org/2000/svg'%3e%3crect width='100%25' height='100%25' fill='none' stroke='rgba(126,129,168,0.6)' stroke-width='4' stroke-dasharray='2%2c4' stroke-dashoffset='29' stroke-linecap='butt'/%3e%3c/svg%3e"), 
 			linear-gradient(rgba(126,129,168,0.4) 0%, rgba(0,0,0,0) 33%,rgba(0,0,0,0) 66%, rgba(126,129,168,0.4) 100%);
 		z-index: 1;
@@ -60,23 +78,11 @@
 		border-bottom: 7px solid rgb(126,129,168);
 		border-left: 2px solid rgb(126,129,168);
 		border-right: 2px solid rgb(126,129,168);
-		transition: backdrop-filter 0.5s;
+		transition: 0.5s;
 	}
 
 	#window-inner.blur {
 		backdrop-filter: blur(7px);
-	}
-
-	#tagline {
-		position: absolute;
-		width: 100%;
-		top: -50px;
-		color: white;
-		z-index: 2;
-		font-family: neue-haas-grotesk-display, sans-serif;
-		text-shadow: 0px 0px 10px white;
-		letter-spacing: 10px;
-		text-align: center;
 	}
 
 	#video-container {
@@ -103,6 +109,7 @@
 
 	#circles {
 		position: absolute;
+		margin-top: 45px;
 		width: 1100px;
 		height: 650px;
 		overflow: hidden;
@@ -186,9 +193,9 @@
 	}
 
 	@media screen and (max-width: 840px) {
-		#the-window {
-			height: 800px;
-		}
+		#window-container {
+			height: 845px;
+		}	
 		#circles {
 			height: 800px;
 		}
@@ -357,19 +364,21 @@
 	{/if}
 
 
-	<div id="the-window">
-		<div id="window-inner" class:blur={$blurBg}>
-			<div id="tagline">
-				<div>[ taboo_world ]</div>
-				<div id="underworld">the underworld wide web</div>
+	<div id="window-container">
+		<div id="tagline">
+			<div>[ taboo_world ]</div>
+			<div id="underworld">the underworld wide web</div>
+		</div>
+		<div id="the-window">
+			<div id="window-inner" class:blur={$blurBg}>
+				<Router {url}>
+					<Route path="/" component={Home} />
+					<Route path="/mission" component={Mission} />
+					<Route path="/bio" component={Bio} />
+					<Route path="/socials" component={Socials} />
+					<Route path="/archive" component={Archive} />
+				</Router>
 			</div>
-			<Router {url}>
-				<Route path="/" component={Home} />
-				<Route path="/mission" component={Mission} />
-				<Route path="/bio" component={Bio} />
-				<Route path="/socials" component={Socials} />
-				<Route path="/archive" component={Archive} />
-			</Router>
 		</div>
 	</div>
 
