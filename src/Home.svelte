@@ -6,9 +6,14 @@
 <style>
   #menu {
     height: 100%;
+    width: 100%;
+    display: grid;
+    justify-items: center;
+    grid-template-columns: 1fr;
   }
 
   #menu-inner {
+    width: 100%;
     display: grid;
     grid-template-columns: 150px 150px 150px 150px 150px;
     justify-content: space-between;
@@ -21,6 +26,7 @@
 
   @media screen and (max-width: 840px) {
     #menu-inner {
+      width: 500px;
       justify-content: center;
       grid-gap: 10%;
     }
