@@ -4,9 +4,22 @@
 	import { link } from 'svelte-routing'
   import { onDestroy, onMount } from 'svelte';
 
-  onMount(async () => { $blurBg = true })
-  onDestroy(async () => { $blurBg = false })
+  let mouseStartPos = [0,0]
 
+  onMount(async () => { $blurBg = true;
+
+		document.querySelectorAll(".images").forEach(elem => {
+      console.log(elem)
+      new ScrollBooster({
+        viewport: elem,
+        content: elem.querySelector('.images-inner'),
+        scrollMode: 'native',
+        direction: 'horizontal'
+      }); 
+    })
+  })
+  onDestroy(async () => { $blurBg = false })
+  
   let data = {
     "PROJECTS": {
       2020: {
@@ -186,8 +199,21 @@
     }
   }
 
+  $: if (selYear || selCat) {
+    setTimeout(() => {
+      document.querySelectorAll(".images").forEach(elem => {
+        new ScrollBooster({
+          viewport: elem,
+          content: elem.querySelector('.images-inner'),
+          scrollMode: 'native',
+          direction: 'horizontal'
+        }); 
+    }, 100);
+    })
+  }
+
   let selCat = Object.keys(data)[0]
-  let selYear = Object.keys(data[selCat]).reverse()[0]
+  let selYear = 2019
 
   function selectYear(year) {
     document.querySelectorAll(".project-content").forEach(e => {
@@ -424,19 +450,19 @@
     grid-gap: 5px;
   }
 
-  .project-content .images-inner {
+  .images {
+    overflow: hidden;
+    width: 100%;
+  }
+
+  .images-inner {
     white-space: nowrap;
     display: flex;
     flex-direction: row;
     gap: 10px;
-    overflow: auto;
     height: 100%;
   }
-
-  .images {
-    overflow: hidden;
-  }
-
+  
   .project-content .description {
     font-family: eurostile-extended;
     font-size: 0.7em;
@@ -448,8 +474,6 @@
   .project-content img {
     cursor: pointer;
   }
-
-  
 
   @media screen and (max-width: 840px) {
     #archive-view {
@@ -526,9 +550,19 @@
             <div class="images">
               <div class="images-inner">
                 {#each data[selCat][selYear][project]["thumbnails"] as src, i}
-                <img {src} on:click={
-                  () => $fullImage = [data[selCat][selYear][project]["full"], i, data[selCat][selYear][project]["full"].length]
-                  } alt="project">
+                <img draggable="false" {src}
+                  on:mousedown={e => {
+                    mouseStartPos = [e.pageX, e.pageY]
+                  }}
+                  on:mouseup={e => {
+                    const mouseMoveDiff = [
+                      Math.abs(e.pageX - mouseStartPos[0]),
+                      Math.abs(e.pageY - mouseStartPos[1])
+                    ]
+                    if (mouseMoveDiff[0] < 10 && mouseMoveDiff[1] < 10) {
+                      $fullImage = [data[selCat][selYear][project]["full"], i, data[selCat][selYear][project]["full"].length]
+                    }
+                  }} alt="project">
                 {/each}
               </div>
             </div>

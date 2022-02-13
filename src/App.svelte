@@ -11,14 +11,12 @@
 	export let url=""
 	
 	function handleKeydown(e) {
-		console.log(e)
 		if (e.key == "Escape") $fullImage = [] 
 		if ((e.key == "ArrowRight") && ($fullImage[1] < $fullImage[2]-1)) $fullImage[1] += 1
 		if ((e.key == "ArrowLeft") && ($fullImage[1] > 0)) $fullImage[1] -= 1
 	}
 
 	function handleMousedown(e) {
-		console.log(e.target)
 		if (e.target.id == "gallery") $fullImage = []
 	}
 </script>
@@ -50,7 +48,7 @@
 		font-family: neue-haas-grotesk-display, sans-serif;
 		text-shadow: 0px 0px 10px white;
 		letter-spacing: 10px;
-		z-index: 10;
+		z-index: 4;
 		text-align: center;
 	}
 
