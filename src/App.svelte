@@ -70,7 +70,6 @@
 		height: 100%;
 		padding: 7px;
 		backdrop-filter: blur(0px);
-		-webkit-backdrop-filter: blur(0px);
 		box-sizing: border-box;
 		border-top: 7px solid rgb(126,129,168);
 		border-bottom: 7px solid rgb(126,129,168);

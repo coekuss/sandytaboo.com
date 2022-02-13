@@ -213,7 +213,7 @@
   }
 
   let selCat = Object.keys(data)[0]
-  let selYear = 2019
+  let selYear = Object.keys(data[selCat]).reverse()[0]
 
   function selectYear(year) {
     document.querySelectorAll(".project-content").forEach(e => {
