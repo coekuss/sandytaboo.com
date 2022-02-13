@@ -456,7 +456,7 @@
   }
 
   .images-inner {
-    white-space: nowrap;
+    display: -webkit-flex;
     display: flex;
     flex-direction: row;
     gap: 10px;
