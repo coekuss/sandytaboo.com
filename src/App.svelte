@@ -64,6 +64,7 @@
 		display: flex;
 		place-items: center;
 		place-content: center;
+		overflow: hidden;
 	}
 
 	#window-inner {

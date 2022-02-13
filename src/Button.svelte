@@ -7,9 +7,24 @@
     font-family: eurostile-extended;
     position: relative;
   }
+
   svg {
     width: 150px;
   }
+
+  .bg {
+    fill-opacity: 0.1;
+    transition: 0.1s;
+  }
+  
+  main:hover .bg {
+    fill-opacity: 0.5;
+  }
+
+  main:hover {
+    text-shadow: 0px 0px 5px white;
+  }
+
   .button-text {
     color: white;
     position: absolute;
@@ -22,8 +37,8 @@
 <main>
 
 <svg viewBox="0 0 104 37" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" xml:space="preserve" fill-rule="evenodd" clip-rule="evenodd" stroke-linejoin="round" stroke-miterlimit="2">
-  <path shape-rendering="crispEdges" d="M102 7H2v20h100V7Zm-1 1v18H3V8h98Z" fill="#c2c3d6"/>
-  <path fill="#c2c3d6" fill-opacity=".1" d="M4 9h96v16H4z"/>
+  <path d="M102 7H2v20h100V7Zm-1 1v18H3V8h98Z" fill="#c2c3d6" />
+  <path class="bg" fill="#c2c3d6" d="M4 9h96v16H4z"/>
   <path d="M104 5H0v32h104V5Zm-1 1v30H1V6h102Z" fill="#c2c3d6" fill-opacity=".5"/>
   <path fill="#e1e1ea" d="M2 28h82v7H2z"/>
   <path fill="#b6b6b6" d="M4 30h78v3H4z"/>

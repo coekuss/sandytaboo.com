@@ -12,12 +12,13 @@
   #mission-wrap {
     height: 100%;
     width: 100%;
-    backdrop-filter: blur(0px);
     color: white;
-    transition: 0.2s;
+    position: relative;
   }
 
   #top-bar {
+    top: 0;
+    left: 0;
     position: absolute;
     display: flex;
     flex-direction: row;
@@ -40,8 +41,6 @@
     justify-content: center;
     gap: 15px;
     letter-spacing: 2px;
-    text-align: center;
-    text-shadow: 0px 0px 10px white;
   }
 
   #button2 {

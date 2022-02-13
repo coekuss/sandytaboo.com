@@ -223,14 +223,14 @@
     height: 100%;
     width: 100%;
     color: white;
-    transition: 0.2s;
-    box-sizing: border-box;
     position: relative;
   }
 
   #top-bar {
-    position: absolute;
+    top: 0;
+    left: 0;
     z-index: 2;
+    position: absolute;
     display: grid;
     justify-content: center;
     width: 100%;
@@ -296,12 +296,17 @@
     padding-top: 60px;
     width: 100%;
     height: calc(100% - 60px);
-    display: flex;
-    flex-direction: row;
+    position: relative;
+    display: grid;
+    grid-template-columns: auto auto;
   }
 
   #sidebar {
-    margin-top: -10px;
+    margin: -10px 0px 0px 0px;
+    width: 100%;
+    overflow-y: auto;
+    padding-right: 20px;
+
   }
 
   #sidebar .button-head, #sidebar .button-sub {
@@ -315,12 +320,15 @@
 
   #content {
     width: 100%;
-    margin-left: 20px;
+    height: 100%;
 		border-top: 7px solid rgb(126,129,168);
 		border-bottom: 7px solid rgb(126,129,168);
 		border-left: 2px solid rgb(126,129,168);
 		border-right: 2px solid rgb(126,129,168);
     padding: 10px;
+    display: flex;
+    flex-direction: column;
+    box-sizing: border-box;
     overflow-y: auto;
   }
 
@@ -347,17 +355,10 @@
   .project-row .project-indicator {
     width: 100%;
     position: relative;
+    transition: 0.1s;
   }
 
   .project-indicator::before {
-    content: "-";
-    font-size: 1.6em;
-    position: absolute;
-    top: -4px;
-    left: 13px;
-  }
-
-  .project-indicator.plus::before {
     content: "+";
     font-size: 1.5em;
     position: absolute;
@@ -365,28 +366,32 @@
     left: 7px;
   }
 
+  .project-indicator.plus::before {
+    content: "-";
+    font-size: 1.6em;
+    position: absolute;
+    top: -4px;
+    left: 13px;
+  }
+
   .project-indicator div, .project-head div, .side-guide div {
     width: 100%;
     height: 100%;
     display: flex;
-    background: rgba(194,195,214,0.15);
-  }
-
-  .project-indicator div {
-    font-size: 1.5em;
-    place-content: center;
-    place-items: center;
-  }
-
-  .project-head div {
-    padding-left: 5px;
     align-items: center;
+    box-sizing: border-box;
+    padding-left: 5px;
+    background: rgba(194,195,214,0.15);
+    transition: 0.1s;
+  }
+  
+  .project-row:hover .project-indicator div {
+    background: rgba(194,195,214,0.4);
   }
 
-
-  .project-indicator div {
-    padding: 4px;
-    box-sizing: border-box;
+  .project-row:hover .project-indicator {
+    text-shadow: 0px 0px 5px white;
+    box-shadow: 0px 0px 10px rgba(255, 255, 255, 0.5);
   }
 
   /* content under the heading */
@@ -448,15 +453,14 @@
 
   @media screen and (max-width: 840px) {
     #archive-view {
-      display: flex;
-      flex-direction: column;
+      display: grid;
+      grid-template-rows: 80px auto;
+      grid-template-columns: auto;
     }
     #categories {
-      display: flex;
-      flex-direction: row;
-      width: 100%;
+      display: grid;
+      grid-template-columns: auto auto auto;
       justify-content: space-between;
-      gap: 10px;
       height: 20px;
     }
     #years {

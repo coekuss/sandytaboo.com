@@ -13,12 +13,14 @@
     height: 100%;
     width: 100%;
     color: white;
+    position: relative;
   }
 
   #top-bar {
+    top: 0;
+    left: 0;
     position: absolute;
-    display: flex;
-    flex-direction: row;
+    display: grid;
     justify-content: center;
     width: 100%;
   }

@@ -14,6 +14,7 @@
 		function onWindowResize() {
 			height = window.innerHeight
 			width = window.innerWidth
+			windowHalf = new THREE.Vector2( window.innerWidth / 2, window.innerHeight / 2 );
 
 			camera.aspect = width / height;
 			camera.updateProjectionMatrix();
@@ -30,7 +31,7 @@
 		/////////smooth mouse rotation///////////
 		const mouse = new THREE.Vector2();
 		const target = new THREE.Vector2();
-		const windowHalf = new THREE.Vector2( window.innerWidth / 2, window.innerHeight / 2 );
+		let windowHalf = new THREE.Vector2( window.innerWidth / 2, window.innerHeight / 2 );
 
 		mouse.x = 150
 		function animate() {

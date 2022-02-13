@@ -13,10 +13,12 @@
     height: 100%;
     width: 100%;
     color: white;
-    transition: 0.2s;
+    position: relative;
   }
 
   #top-bar {
+    top: 0;
+    left: 0;
     position: absolute;
     display: flex;
     flex-direction: row;
