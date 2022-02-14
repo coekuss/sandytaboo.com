@@ -219,43 +219,36 @@
     project.classList.toggle("expanded")
   }
 
-
-
-///////////////////////////////////////////////////////////////////////////////////////////////
-///////////////////////////////////////////////////////////////////////////////////////////////
-///////////////////////////////////////////////////////////////////////////////////////////////
-///////////////////////////////////////////////////////////////////////////////////////////////
-///////////////////////////////////////////////////////////////////////////////////////////////
-
-let ele
-let pos = { top: 0, left: 0, x: 0, y: 0 };
-const mouseDownHandler = function (e) {
-  ele = e.currentTarget
-  pos = {
-      // The current scroll
-      left: ele.scrollLeft,
-      top: ele.scrollTop,
-      // Get the current mouse position
-      x: e.clientX,
-      y: e.clientY,
+  // drag-scroll on archive-images
+  let ele
+  let pos = { top: 0, left: 0, x: 0, y: 0 };
+  const mouseDownHandler = function (e) {
+    ele = e.currentTarget
+    pos = {
+        // The current scroll
+        left: ele.scrollLeft,
+        top: ele.scrollTop,
+        // Get the current mouse position
+        x: e.clientX,
+        y: e.clientY,
+    };
+    document.addEventListener('mousemove', mouseMoveHandler);
+    document.addEventListener('mouseup', mouseUpHandler);
   };
-  document.addEventListener('mousemove', mouseMoveHandler);
-  document.addEventListener('mouseup', mouseUpHandler);
-};
 
-const mouseMoveHandler = e => {
-  // How far the mouse has been moved
-  const dx = e.clientX - pos.x;
-  const dy = e.clientY - pos.y;
-  // Scroll the element
-  ele.scrollTop = pos.top - dy;
-  ele.scrollLeft = pos.left - dx;
-};
+  const mouseMoveHandler = e => {
+    // How far the mouse has been moved
+    const dx = e.clientX - pos.x;
+    const dy = e.clientY - pos.y;
+    // Scroll the element
+    ele.scrollTop = pos.top - dy;
+    ele.scrollLeft = pos.left - dx;
+  };
 
-const mouseUpHandler = () => {
-  document.removeEventListener('mousemove', mouseMoveHandler);
-  document.removeEventListener('mouseup', mouseUpHandler);
-}
+  const mouseUpHandler = () => {
+    document.removeEventListener('mousemove', mouseMoveHandler);
+    document.removeEventListener('mouseup', mouseUpHandler);
+  }
 
 </script>
 
@@ -463,21 +456,16 @@ const mouseUpHandler = () => {
     margin-left: 15px;
     height: 400px;
     display: grid;
-    grid-template-rows: 1fr fit-content;
+    grid-template-rows: 1fr auto;
     grid-gap: 5px;
   }
 
   .images {
     overflow: auto;
     width: 100%;
-  }
-
-  .images-inner {
-    display: -webkit-flex;
     display: flex;
     flex-direction: row;
     gap: 10px;
-    height: 100%;
   }
   
   .project-content .description {
@@ -566,24 +554,22 @@ const mouseUpHandler = () => {
           <div class="side-guide"><div></div></div>
           <div class="images-and-description">
             <div class="images" on:mousedown={mouseDownHandler}>
-              <div class="images-inner">
-                {#each data[selCat][selYear][project]["thumbnails"] as src, i}
-                <img ondragstart="return false" draggable="false" {src}
-                  on:mousedown={e => {
-                    if (e.button != 0) return
-                    mouseStartPos = [e.pageX, e.pageY]
-                  }}
-                  on:mouseup={e => {
-                    const mouseMoveDiff = [
-                      Math.abs(e.pageX - mouseStartPos[0]),
-                      Math.abs(e.pageY - mouseStartPos[1])
-                    ]
-                    if (mouseMoveDiff[0] < 10 && mouseMoveDiff[1] < 10) {
-                      $fullImage = [data[selCat][selYear][project]["full"], i, data[selCat][selYear][project]["full"].length]
-                    }
-                  }} alt="project">
-                {/each}
-              </div>
+              {#each data[selCat][selYear][project]["thumbnails"] as src, i}
+              <img ondragstart="return false" draggable="false" {src}
+                on:mousedown={e => {
+                  if (e.button != 0) return
+                  mouseStartPos = [e.pageX, e.pageY]
+                }}
+                on:mouseup={e => {
+                  const mouseMoveDiff = [
+                    Math.abs(e.pageX - mouseStartPos[0]),
+                    Math.abs(e.pageY - mouseStartPos[1])
+                  ]
+                  if (mouseMoveDiff[0] < 10 && mouseMoveDiff[1] < 10) {
+                    $fullImage = [data[selCat][selYear][project]["full"], i, data[selCat][selYear][project]["full"].length]
+                  }
+                }} alt="project">
+              {/each}
             </div>
             <div class="description">
               {data[selCat][selYear][project]["description"]}
