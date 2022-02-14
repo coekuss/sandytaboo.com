@@ -6,18 +6,7 @@
 
   let mouseStartPos = [0,0]
 
-  onMount(async () => { $blurBg = true;
-
-		document.querySelectorAll(".images").forEach(elem => {
-      console.log(elem)
-      new ScrollBooster({
-        viewport: elem,
-        content: elem.querySelector('.images-inner'),
-        scrollMode: 'native',
-        direction: 'horizontal'
-      }); 
-    })
-  })
+  onMount(async () => { $blurBg = true })
   onDestroy(async () => { $blurBg = false })
   
   let data = {
@@ -199,19 +188,6 @@
     }
   }
 
-  $: if (selYear || selCat) {
-    setTimeout(() => {
-      document.querySelectorAll(".images").forEach(elem => {
-        new ScrollBooster({
-          viewport: elem,
-          content: elem.querySelector('.images-inner'),
-          scrollMode: 'native',
-          direction: 'horizontal'
-        }); 
-    }, 100);
-    })
-  }
-
   let selCat = Object.keys(data)[0]
   let selYear = Object.keys(data[selCat]).reverse()[0]
 
@@ -242,7 +218,48 @@
     e.querySelector(".project-indicator").classList.toggle("plus")
     project.classList.toggle("expanded")
   }
+
+
+
+///////////////////////////////////////////////////////////////////////////////////////////////
+///////////////////////////////////////////////////////////////////////////////////////////////
+///////////////////////////////////////////////////////////////////////////////////////////////
+///////////////////////////////////////////////////////////////////////////////////////////////
+///////////////////////////////////////////////////////////////////////////////////////////////
+
+let ele
+let pos = { top: 0, left: 0, x: 0, y: 0 };
+const mouseDownHandler = function (e) {
+  ele = e.currentTarget
+  pos = {
+      // The current scroll
+      left: ele.scrollLeft,
+      top: ele.scrollTop,
+      // Get the current mouse position
+      x: e.clientX,
+      y: e.clientY,
+  };
+  document.addEventListener('mousemove', mouseMoveHandler);
+  document.addEventListener('mouseup', mouseUpHandler);
+};
+
+const mouseMoveHandler = e => {
+  // How far the mouse has been moved
+  const dx = e.clientX - pos.x;
+  const dy = e.clientY - pos.y;
+  // Scroll the element
+  ele.scrollTop = pos.top - dy;
+  ele.scrollLeft = pos.left - dx;
+};
+
+const mouseUpHandler = () => {
+  document.removeEventListener('mousemove', mouseMoveHandler);
+  document.removeEventListener('mouseup', mouseUpHandler);
+}
+
 </script>
+
+<!-- <svelte:window on:mousedown={mouseDownHandler} /> -->
 
 <style>
   #mission-wrap {
@@ -451,7 +468,7 @@
   }
 
   .images {
-    overflow: hidden;
+    overflow: auto;
     width: 100%;
   }
 
@@ -472,6 +489,7 @@
   }
 
   .project-content img {
+    user-select: none;
     cursor: pointer;
   }
 
@@ -547,11 +565,12 @@
         <div class="project-content expanded">
           <div class="side-guide"><div></div></div>
           <div class="images-and-description">
-            <div class="images">
+            <div class="images" on:mousedown={mouseDownHandler}>
               <div class="images-inner">
                 {#each data[selCat][selYear][project]["thumbnails"] as src, i}
-                <img draggable="false" {src}
+                <img ondragstart="return false" draggable="false" {src}
                   on:mousedown={e => {
+                    if (e.button != 0) return
                     mouseStartPos = [e.pageX, e.pageY]
                   }}
                   on:mouseup={e => {
