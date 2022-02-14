@@ -370,7 +370,7 @@
 
   .project {
     display: grid;
-    grid-template-rows: 30px fit-content;
+    grid-template-rows: auto auto;
     margin-bottom: 10px;
   }
 
@@ -463,11 +463,12 @@
   .images {
     overflow: auto;
     width: 100%;
+    height: 100%;
     display: flex;
-    flex-direction: row;
+    flex-flow: row nowrap;
     gap: 10px;
   }
-  
+
   .project-content .description {
     font-family: eurostile-extended;
     font-size: 0.7em;
@@ -479,6 +480,8 @@
   .project-content img {
     user-select: none;
     cursor: pointer;
+    height: 100%;
+    width: auto;
   }
 
   @media screen and (max-width: 840px) {
