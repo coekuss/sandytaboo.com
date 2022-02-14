@@ -163,6 +163,7 @@
 	
 	#gallery img {
 		width: 100%;
+		height: auto;
 		max-width: 1200px;
 		max-height: calc(100vh - 100px);
 		margin-bottom: -3px;
