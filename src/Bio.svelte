@@ -41,6 +41,8 @@
     justify-content: center;
     gap: 15px;
     letter-spacing: 2px;
+    text-align: center;
+    text-shadow: 0px 0px 10px white;
   }
 
   #button2 {
