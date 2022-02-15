@@ -231,6 +231,7 @@
   let ele
   let pos = { top: 0, left: 0, x: 0, y: 0 };
   const mouseDownHandler = function (e) {
+    if (/Android|webOS|iPhone|iPad|iPod|Opera Mini/i.test(navigator.userAgent)) return
     ele = e.currentTarget
     pos = {
         // The current scroll
