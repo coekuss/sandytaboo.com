@@ -272,7 +272,7 @@
 
 <div id="wrapper">
 	<div id="video-container">
-		<video autoplay muted loop>
+		<video autoplay muted playsinline loop>
 			<source src="assets/bgloop.mp4" type="video/mp4">
 		</video>
 
