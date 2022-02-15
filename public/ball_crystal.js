@@ -107,13 +107,13 @@
 
 
 
-		let pixelRatio = 1
+		let pixelFraction = 1
 		if (/Android|webOS|iPhone|iPad|iPod|Opera Mini/i.test(navigator.userAgent) ) {
-			pixelRatio = 3
+			pixelFraction = 0.25
 		}
 
 		renderer = new THREE.WebGLRenderer( { antialias: true, alpha: true } );
-		renderer.setPixelRatio( window.devicePixelRatio/pixelRatio );
+		renderer.setPixelRatio( window.devicePixelRatio * pixelFraction );
 		console.log("number", window.devicePixelRatio)
 		renderer.setSize( 800, 800 );
 		renderer.toneMapping = THREE.ACESFilmicToneMapping;
