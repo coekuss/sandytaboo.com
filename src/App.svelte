@@ -57,7 +57,12 @@
 		text-shadow: 0px 0px 10px white;
 		letter-spacing: 10px;
 		z-index: 4;
+		font-size: 0.9em;
 		text-align: center;
+	}
+
+	#tagline .taboo {
+		font-weight: 600;
 	}
 
 	#the-window {
@@ -307,7 +312,7 @@
 
 	<div id="window-container">
 		<div id="tagline">
-			<div>[ taboo_world ]</div>
+			<div class="taboo">[ taboo_world ]</div>
 			<div id="underworld">the underworld wide web</div>
 		</div>
 		<div id="the-window">
