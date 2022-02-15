@@ -16,11 +16,11 @@
 			width = window.innerWidth
 			windowHalf = new THREE.Vector2( window.innerWidth / 2, window.innerHeight / 2 );
 
-			camera.aspect = width / height;
-			camera.updateProjectionMatrix();
+			camera.aspect = 1
+			camera.updateProjectionMatrix()
 			render();
-			renderer.setSize( width, height );
-			composer.setSize( width, height );
+			renderer.setSize( 800, 800 );
+			composer.setSize( 800, 800 );
 			composer.render()
 		}
 
@@ -72,7 +72,7 @@
 		loader.load( './assets/Taboo_Ball_16b.glb', function ( gltf ) {
 			ball = gltf.scene
 			scene.add( ball )
-			gltf.scene.scale.set(0.0015, 0.0015, 0.0015)
+			gltf.scene.scale.set(0.0023, 0.0023, 0.0023)
 			render()
 		});
 
@@ -100,7 +100,7 @@
 		
 			// water = new THREE.Mesh(waterGeometry, material)
 			water = gltf.scene
-			water.scale.set(0.0015, 0.0015, 0.0015);
+			water.scale.set(0.0023, 0.0023, 0.0023);
 			scene.add(water)
 		})
 		/////////////////////
@@ -114,11 +114,14 @@
 
 		renderer = new THREE.WebGLRenderer( { antialias: true, alpha: true } );
 		renderer.setPixelRatio( window.devicePixelRatio/pixelRatio );
-		renderer.setSize( width, height );
+		console.log("number", window.devicePixelRatio)
+		renderer.setSize( 800, 800 );
 		renderer.toneMapping = THREE.ACESFilmicToneMapping;
 		renderer.toneMappingExposure = 1;
 		renderer.outputEncoding = THREE.sRGBEncoding;
 		renderer.setClearColor(0xFF0000, 0)
+		camera.aspect = 1
+		camera.updateProjectionMatrix()
 
 		
 		// bloom effects start here
