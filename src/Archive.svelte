@@ -199,6 +199,10 @@
       e.classList.add("plus")
     })
     selYear = year
+
+    document.querySelectorAll(".images").forEach(e => {
+      e.scrollLeft = 0
+    })
   }
 
   function selectCategory(category) {
@@ -211,6 +215,10 @@
     if (selCat == category) return
     selCat = category
     selYear = Object.keys(data[selCat]).reverse()[0]
+
+    document.querySelectorAll(".images").forEach(e => {
+      e.scrollLeft = 0
+    })
   }
 
   function toggleExpand(e) {
