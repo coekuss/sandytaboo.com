@@ -114,7 +114,6 @@
 
 		renderer = new THREE.WebGLRenderer( { antialias: true, alpha: true } );
 		renderer.setPixelRatio( window.devicePixelRatio * pixelFraction );
-		console.log("number", window.devicePixelRatio)
 		renderer.setSize( 800, 800 );
 		renderer.toneMapping = THREE.ACESFilmicToneMapping;
 		renderer.toneMappingExposure = 1;
