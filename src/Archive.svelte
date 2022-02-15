@@ -14,16 +14,16 @@
       2020: {
         "Virtual Ascension": {
           "thumbnails": [
-            "archive/projects/2020 - Virtual Ascension/1.vaproduct.jpeg",
-            "archive/projects/2020 - Virtual Ascension/2.vaproduct1.JPG",
+            "archive/projects/2020 - Virtual Ascension/1.vaproduct.jpg",
+            "archive/projects/2020 - Virtual Ascension/2.vaproduct1.jpg",
             "archive/projects/2020 - Virtual Ascension/3.vaskndlss1.jpg",
             "archive/projects/2020 - Virtual Ascension/4.vataboo1.jpg",
           ],
           "full": [
-            "archive/projects/2020 - Virtual Ascension/full/1.vaproduct.jpeg",
-            "archive/projects/2020 - Virtual Ascension/full/2.vaproduct1.JPG",
-            "archive/projects/2020 - Virtual Ascension/full/3.vaskndlss1.JPG",
-            "archive/projects/2020 - Virtual Ascension/full/4.vataboo1.JPG",
+            "archive/projects/2020 - Virtual Ascension/full/1.vaproduct.jpg",
+            "archive/projects/2020 - Virtual Ascension/full/2.vaproduct1.jpg",
+            "archive/projects/2020 - Virtual Ascension/full/3.vaskndlss1.jpg",
+            "archive/projects/2020 - Virtual Ascension/full/4.vataboo1.jpg",
           ],
           "description": "In collaboration with SKNDLSS"
         }
@@ -65,15 +65,15 @@
         "Taboo Juggalo Shirt": {
           "thumbnails": [
             "archive/projects/2018 - Taboo Juggalo Shirt/1.shirt.jpg",
-            "archive/projects/2018 - Taboo Juggalo Shirt/2.lookbook4.JPG",
-            "archive/projects/2018 - Taboo Juggalo Shirt/3.lookbook1.JPG",
-            "archive/projects/2018 - Taboo Juggalo Shirt/4.lookbook3.JPG",
+            "archive/projects/2018 - Taboo Juggalo Shirt/2.lookbook4.jpg",
+            "archive/projects/2018 - Taboo Juggalo Shirt/3.lookbook1.jpg",
+            "archive/projects/2018 - Taboo Juggalo Shirt/4.lookbook3.jpg",
           ],
           "full": [
             "archive/projects/2018 - Taboo Juggalo Shirt/full/1.shirt.jpg",
-            "archive/projects/2018 - Taboo Juggalo Shirt/full/2.lookbook4.JPG",
-            "archive/projects/2018 - Taboo Juggalo Shirt/full/3.lookbook1.JPG",
-            "archive/projects/2018 - Taboo Juggalo Shirt/full/4.lookbook3.JPG",
+            "archive/projects/2018 - Taboo Juggalo Shirt/full/2.lookbook4.jpg",
+            "archive/projects/2018 - Taboo Juggalo Shirt/full/3.lookbook1.jpg",
+            "archive/projects/2018 - Taboo Juggalo Shirt/full/4.lookbook3.jpg",
           ],
           "description": "Shot by Yuliss Benitez. Art by Isaidah E. Cruz."
         },
@@ -190,8 +190,6 @@
 
   let selCat = Object.keys(data)[0]
   let selYear = Object.keys(data[selCat]).reverse()[0]
-
-  $fullImage = [data[selCat][selYear]["Virtual Ascension"]["full"], 2, data[selCat][selYear]["Virtual Ascension"]["full"].length]
   
   function selectYear(year) {
     document.querySelectorAll(".project-content").forEach(e => {
@@ -336,7 +334,7 @@
     height: calc(100% - 60px);
     position: relative;
     display: grid;
-    grid-template-columns: auto auto;
+    grid-template-columns: auto 1fr;
   }
 
   #sidebar {
