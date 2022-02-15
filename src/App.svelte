@@ -111,6 +111,9 @@
 
 	#three {
 		position: absolute;
+		display: grid;
+		place-items: center;
+		place-content: center;
 		z-index: 0;
 		width: 100vw;
 		height: 100vh;
