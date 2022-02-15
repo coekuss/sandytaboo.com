@@ -8,7 +8,7 @@
 
   onMount(async () => { $blurBg = true })
   onDestroy(async () => { $blurBg = false })
-  
+
   let data = {
     "PROJECTS": {
       2020: {
@@ -191,6 +191,8 @@
   let selCat = Object.keys(data)[0]
   let selYear = Object.keys(data[selCat]).reverse()[0]
 
+  $fullImage = [data[selCat][selYear]["Virtual Ascension"]["full"], 2, data[selCat][selYear]["Virtual Ascension"]["full"].length]
+  
   function selectYear(year) {
     document.querySelectorAll(".project-content").forEach(e => {
       e.classList.add("expanded")

@@ -10,6 +10,14 @@
 
 	export let url=""
 	
+	// function handleResize() {
+	// 	let gal = document.querySelector("#gallery-inner img")
+	// 	if (gal.width > window.innerWidth) {
+	// 		gal.width = window.innerWidth
+	// 		console.log("tried")
+	// 	}
+	// }
+	
 	function handleKeydown(e) {
 		if (e.key == "Escape") $fullImage = [] 
 		if ((e.key == "ArrowRight") && ($fullImage[1] < $fullImage[2]-1)) $fullImage[1] += 1
@@ -159,15 +167,16 @@
 
 	#gallery-inner {
 		position: relative;
+		max-width: 1200px;
 	}
 	
 	#gallery img {
-		width: 100%;
+		width: auto;
 		height: auto;
-		max-width: 1200px;
+		max-width: 100%;
 		max-height: calc(100vh - 100px);
-		margin-bottom: -3px;
     border: 2px solid rgb(174,175,194);
+		margin-bottom: -3px;
 	}
 
 	#gallery #x {
@@ -258,7 +267,8 @@
 	}
 </style>
 
-<svelte:window on:mousedown={handleMousedown} on:keydown={handleKeydown}/>
+<svelte:window on:mousedown={handleMousedown} on:keydown={handleKeydown} /> 
+ <!-- on:resize={handleResize}/> -->
 
 <div id="wrapper">
 	<div id="video-container">
@@ -271,7 +281,6 @@
 	{#if $fullImage != ""}
 		<div id="gallery" transition:fade={{duration: 100}}>
 			<div id="gallery-inner">
-
 				<div id="x" on:click={() => $fullImage = ""}>
 					<div>X</div>
 				</div>
@@ -286,10 +295,9 @@
 					</div>
 				</div>
 	
-				<img transition:fade src={ $fullImage[0][$fullImage[1]] } alt="gallery">
-	
+				<img src={ $fullImage[0][$fullImage[1]] } alt="gallery">
+		
 			</div>
-
 		</div>
 	{/if}
 
