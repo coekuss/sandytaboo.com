@@ -2,3 +2,4 @@
 * text=auto
 
 public/three/**/* linguist-vendored
+public/three/examples/jsm/**/* linguist-vendored
