@@ -5,6 +5,5 @@ const socials = {
   "INSTAGRAM": "http://instagram.com/sandytaboo",
   "TWITTER": "http://twitter.com/sandytaboo",
   "YOUTUBE": "http://youtube.com/sandytaboo",
-  "SOUNDCLOUD": "http://soundcloud.com/sandytaboo",
-  "funny website": "https://google.com/"
+  "SOUNDCLOUD": "http://soundcloud.com/sandytaboo"
 }
