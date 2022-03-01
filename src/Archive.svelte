@@ -1,7 +1,7 @@
 <script>
   import { blurBg, fullImage } from "./stores.js"
   import Button from "./Button.svelte"
-	import { link } from 'svelte-routing'
+  import { link } from 'svelte-routing'
   import { onDestroy, onMount } from 'svelte';
 
   let mouseStartPos = [0,0]
@@ -13,6 +13,21 @@
   
   let selCat = Object.keys(data)[0]
   let selYear = Object.keys(data[selCat]).reverse()[0]
+
+  // hash directs the window to the category and year from the URL hash
+  let hash = window.location.hash.slice(1)
+  if (hash != "") {
+    let hashArr = hash.split("/")
+
+    if (Object.keys(data).includes(hashArr[0])) {
+      selCat = hashArr[0]
+    }
+    if (hashArr.length === 2 && Object.keys(data[selCat]).includes(hashArr[1])) {
+      selYear = hashArr[1]
+    } else {
+      selYear = Object.keys(data[selCat]).reverse()[0]
+    }
+  }
 
   function selectYear(year) {
     document.querySelectorAll(".project-content").forEach(e => {
@@ -85,7 +100,7 @@
 </script>
 
 <!-- <svelte:window on:mousedown={mouseDownHandler} /> -->
-
+ 
 <style>
   #mission-wrap {
     height: 100%;
@@ -343,9 +358,11 @@
 
     }
   }
-
-  
-
+ 
+  a {
+    text-decoration: none;
+    color: white;
+  }
 </style>
 
 <div id="mission-wrap">
@@ -358,7 +375,7 @@
       <div id="categories">
         {#each Object.keys(data) as category}
           <div class="button-head category" class:selected={ category == selCat } on:click={() => selectCategory(category)}>
-            <div>{category}</div>
+            <a href={"#" + category + "/" + Object.keys(data[selCat]).reverse()[0]}><div>{category}</div> </a>
           </div>
         {/each}
       </div>
@@ -366,7 +383,9 @@
       <div id="years">
         {#if selCat != ""}
         {#each Object.keys(data[selCat]).reverse() as year}
-          <div class="button-sub" class:selected={selYear == year} on:click={() => selectYear(year)}><div>{year}</div></div>
+          <div class="button-sub" class:selected={selYear == year} on:click={() => selectYear(year)}>
+            <a href={"#" + selCat + "/" + year}><div>{year}</div></a>
+          </div>
         {/each}
         {/if}
       </div>
