@@ -8,7 +8,6 @@
   onDestroy(async () => { $blurBg = false })
 
   let biotxt = bio.split('\n')
-  console.log(biotxt)
 </script>
 
 <style>
