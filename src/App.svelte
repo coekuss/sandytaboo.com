@@ -7,6 +7,7 @@
   import Bio from './Bio.svelte'
   import Socials from './Socials.svelte'
   import Archive from './Archive.svelte'
+  import NotFound from './404.svelte'
 
 	export let url=""
 	
@@ -344,6 +345,7 @@
 					<Route path="/bio" component={Bio} />
 					<Route path="/socials" component={Socials} />
 					<Route path="/archive" component={Archive} />
+					<Route path="*" component={NotFound} />
 				</Router>
 			</div>
 		</div>

@@ -6,6 +6,8 @@
 
   onMount(async () => { $blurBg = true })
   onDestroy(async () => { $blurBg = false })
+
+  let links = socials
 </script>
 
 <style>
@@ -99,12 +101,8 @@
     </div>
   </div>
   <div id="links">
-    <div class="button-sub"><a href="http://instagram.com/tabootakeover"><div>COMMUNITY</div></a></div>
-    <div class="button-sub"><a href="http://twitter.com/tabootakeover"><div>ANNOUNCEMENTS</div></a></div>
-    <div class="button-sub"><a href="mailto:contactsandytaboo@gmail.com"><div>EMAIL</div></a></div>
-    <div class="button-sub"><a href="http://instagram.com/sandytaboo"><div>INSTAGRAM</div></a></div>
-    <div class="button-sub"><a href="http://twitter.com/sandytaboo"><div>TWITTER</div></a></div>
-    <div class="button-sub"><a href="http://youtube.com/sandytaboo"><div>YOUTUBE</div></a></div>
-    <div class="button-sub"><a href="http://soundcloud.com/sandytaboo"><div>SOUNDCLOUD</div></a></div>
+    {#each Object.keys(links) as link}
+    <div class="button-sub"><a href={links[link]}><div>{link}</div></a></div>
+    {/each}
   </div>
 </div>

@@ -2,13 +2,10 @@
   import { blurBg } from "./stores.js"
   import Button from "./Button.svelte"
 	import { link } from 'svelte-routing'
-  import { onMount, onDestroy } from 'svelte'
+  import { onMount, onDestroy } from 'svelte';
 
   onMount(async () => { $blurBg = true })
   onDestroy(async () => { $blurBg = false })
-
-  let biotxt = bio.split('\n')
-  console.log(biotxt)
 </script>
 
 <style>
@@ -66,16 +63,18 @@
     margin: 0;
   }
 
+  a {
+    color: white;
+  }
+
 </style>
 
 <div id="mission-wrap">
   <div id="top-bar">
-    <a id="back" href="/" use:link><Button>BACK</Button></a>
-    <div id="button2">BIO</div>
+    <a id="back" href="/" use:link><Button>HOME</Button></a>
+    <div id="button2">404</div>
   </div>
   <div id="text">
-    {#each biotxt as line}
-      <p>{line}</p>
-    {/each}
+    <p>This page does not exist. Please head to our <a href="/" use:link>homepage</a>.</p>
   </div>
 </div>
