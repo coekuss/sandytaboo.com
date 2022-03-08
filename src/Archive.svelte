@@ -409,20 +409,24 @@
           <div class="images-and-description">
             <div class="images" on:mousedown={mouseDownHandler}>
               {#each data[selCat][selYear][project]["thumbnails"] as src, i}
-              <img ondragstart="return false" draggable="false" {src}
-                on:mousedown={e => {
-                  if (e.button != 0) return
-                  mouseStartPos = [e.pageX, e.pageY]
-                }}
-                on:mouseup={e => {
-                  const mouseMoveDiff = [
-                    Math.abs(e.pageX - mouseStartPos[0]),
-                    Math.abs(e.pageY - mouseStartPos[1])
-                  ]
-                  if (mouseMoveDiff[0] < 10 && mouseMoveDiff[1] < 10) {
-                    $fullImage = [data[selCat][selYear][project]["full"], i, data[selCat][selYear][project]["full"].length]
-                  }
-                }} alt="project">
+                {#if src.slice(0, 19) == "https://www.youtube"}
+                  <iframe width="500px" src={ src.replace('watch?v=', 'embed/') } title="YouTube video player" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe>
+                {:else}
+                <img ondragstart="return false" draggable="false" {src}
+                  on:mousedown={e => {
+                    if (e.button != 0) return
+                    mouseStartPos = [e.pageX, e.pageY]
+                  }}
+                  on:mouseup={e => {
+                    const mouseMoveDiff = [
+                      Math.abs(e.pageX - mouseStartPos[0]),
+                      Math.abs(e.pageY - mouseStartPos[1])
+                    ]
+                    if (mouseMoveDiff[0] < 10 && mouseMoveDiff[1] < 10) {
+                      $fullImage = [data[selCat][selYear][project]["full"], i, data[selCat][selYear][project]["full"].length]
+                    }
+                  }} alt="project">
+                {/if}
               {/each}
             </div>
             <div class="description">
